@@ -1,0 +1,37 @@
+name: 'Dependadoc'
+description: 'Mirror documentation files to another repo'
+inputs:
+  mirrored-folder:
+    description: 'folder to evaluate for changed files'
+    required: true
+  docs-repository:
+    description: 'repo to open PR against'
+    required: true
+  docs-repository-path:
+    description: 'relative path to place mirrored folder'
+    required: false
+    default: '.'
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout $GITHUB_REPOSITORY
+      uses: actions/checkout@v3 
+      with:
+        path: main
+    - name: Checkout ${{ inputs.docs-repository }}
+      uses: actions/checkout@v3
+      with:
+        repository: $GITHUB_REPOSITORY_OWNER/${{ inputs.docs-repository }}
+        token: ${{ secrets.GH_PAT }} # `GH_PAT` is a secret that contains your PAT
+        path: ${{ inputs.docs-repository }}
+    - run: echo "${{ github.action_path }}" >> $GITHUB_PATH
+      shell: bash
+    - run: dependadoc.sh
+      shell: bash
+      working-directory: ./${{ inputs.docs-repository }}
+      env:
+        MIRRORED_FOLDER: ${{ inputs.mirrored-folder }}
+        MIRRORED_REPOSITORY_FULL_NAME: $GITHUB_REPOSITORY
+        DOCS_REPOSITORY_PATH: ${{ inputs.docs-repository-path}}
+        GITHUB_ACTOR: $GITHUB_ACTOR
+
