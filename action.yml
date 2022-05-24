@@ -5,7 +5,7 @@ inputs:
     description: 'folder to evaluate for changed files'
     required: true
   docs-repository:
-    description: 'repo to open PR against'
+    description: 'repo to open PR against, e.g., yourorg/your-repo'
     required: true
   docs-repository-path:
     description: 'relative path to place mirrored folder'
@@ -21,7 +21,7 @@ runs:
     - name: Checkout ${{ inputs.docs-repository }}
       uses: actions/checkout@v3
       with:
-        repository: $GITHUB_REPOSITORY_OWNER/${{ inputs.docs-repository }}
+        repository: ${{ inputs.docs-repository }}
         path: ${{ inputs.docs-repository }}
     - run: echo "${{ github.action_path }}" >> $GITHUB_PATH
       shell: bash
