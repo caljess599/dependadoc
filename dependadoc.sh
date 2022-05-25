@@ -2,16 +2,22 @@
 
 set -eo pipefail
 
-# working directory has been set as ./${{ inputs.docs-repository }}
+# working directory is $GITHUB_WORKSPACE
+# docs folder at $GITHUB_WORKSPACE/docs
+# working repo at $GITHUB_WORKSPACE/main
 
-# env: (from action.yml)
-  # MIRRORED_FOLDER: ${{ inputs.mirrored-folder }}
-  # MIRRORED_REPOSITORY_FULL_NAME: $GITHUB_REPOSITORY
-  # DOCS_REPOSITORY_PATH: ${{ inputs.docs-repository-path}}
-  # GITHUB_ACTOR: $GITHUB_ACTOR
+# env:
+  #   MIRRORED_FOLDER: ${{ inputs.mirrored-folder }}
+  #   MIRRORED_REPOSITORY_FULL_NAME: $GITHUB_REPOSITORY
+  #   DOCS_REPOSITORY_PATH: ${{ inputs.docs-repository-path}}
+  #   GITHUB_ACTOR: $GITHUB_ACTOR
+  #   GITHUB_WORKSPACE: $GITHUB_WORKSPACE
 
 # get mirrored repo name (no owner)
 MIRRORED_REPO=$(echo ${MIRRORED_REPOSITORY_FULL_NAME##*/})
+
+# position ourselves in docs working dir
+cd $GITHUB_WORKSPACE/docs
 
 # create a new branch inside docs repo
 git switch -c dependadoc-${MIRRORED_REPO}-$(date +%F)
@@ -21,7 +27,7 @@ git config user.name $GITHUB_ACTOR
 git config user.email via-github-actions@github.com
 
 # copy files
-cp -rf ../main/$MIRRORED_FOLDER  $DOCS_REPOSITORY_PATH/mirrored-${MIRRORED_REPO}
+cp -rf $GITHUB_WORKSPACE/main/$MIRRORED_FOLDER  $DOCS_REPOSITORY_PATH/mirrored-${MIRRORED_REPO}
 
 # add changes
 git add .
