@@ -11,6 +11,10 @@ inputs:
     description: 'relative path to place mirrored folder'
     required: false
     default: '.'
+  docs-repository-token-variable:
+    description: 'name of variable where repo token is stored; default is DOC_REPO_TOKEN'
+    required: true
+    default: DOC_REPO_TOKEN
 runs:
   using: "composite"
   steps:
@@ -23,7 +27,7 @@ runs:
       with:
         repository: ${{ inputs.docs-repository }}
         path: docs
-        token: ${{ secrets.JESSICAS_PAT }}
+        token: ${{ input.docs-repository-token-variable }}
     - run: echo "${{ github.action_path }}" >> $GITHUB_PATH
       shell: bash
     - run: dependadoc.sh
