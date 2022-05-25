@@ -16,6 +16,8 @@ set -eo pipefail
 # get mirrored repo name (no owner)
 MIRRORED_REPO=$(echo ${MIRRORED_REPOSITORY_FULL_NAME##*/})
 
+echo "MIRRORED REPO is $MIRRORED_REPO"
+
 # create a new branch inside docs repo
 git switch -c dependadoc-${MIRRORED_REPO}-$(date +%F)
 
@@ -53,5 +55,5 @@ EOF
 
 gh pr create \
   --title "Dependadoc PR from $MIRRORED_REPO (source ./$MIRRORED_FOLDER)" \
-  --body $BODY \
+  --body "$BODY" \
   --fill
