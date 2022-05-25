@@ -33,7 +33,9 @@ git add .
 FILE_LIST=$(git status --porcelain)
 
 # exit if file list indicates there are no changes
-if [ -z $FILE_LIST ]; then exit
+if [ -z $FILE_LIST ]; then 
+  exit
+fi
 
 # commit the changes
 git commit -m "Update ${MIRRORED_REPO}'s mirrored files"
