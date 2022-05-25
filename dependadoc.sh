@@ -16,9 +16,6 @@ set -eo pipefail
 # get mirrored repo name (no owner)
 MIRRORED_REPO=$(echo ${MIRRORED_REPOSITORY_FULL_NAME##*/})
 
-# position ourselves in docs working dir
-cd $GITHUB_WORKSPACE/docs
-
 # create a new branch inside docs repo
 git switch -c dependadoc-${MIRRORED_REPO}-$(date +%F)
 

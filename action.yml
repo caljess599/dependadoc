@@ -14,7 +14,6 @@ inputs:
   docs-repository-token-variable:
     description: 'name of variable where repo token is stored; default is DOC_REPO_TOKEN'
     required: true
-    default: DOC_REPO_TOKEN
 runs:
   using: "composite"
   steps:
@@ -32,7 +31,7 @@ runs:
       shell: bash
     - run: dependadoc.sh
       shell: bash
-      working-directory: ./${{ inputs.docs-repository }}
+      working-directory: $GITHUB_WORKSPACE/docs
       env:
         MIRRORED_FOLDER: ${{ inputs.mirrored-folder }}
         MIRRORED_REPOSITORY_FULL_NAME: $GITHUB_REPOSITORY
