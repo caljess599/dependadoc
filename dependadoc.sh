@@ -33,7 +33,7 @@ git add .
 FILE_LIST=$(git status --porcelain)
 
 # exit if file list indicates there are no changes
-if [ -z $FILE_LIST ]; then 
+if [ -z "$FILE_LIST" ]; then 
   exit
 fi
 
@@ -41,7 +41,7 @@ fi
 git commit -m "Update ${MIRRORED_REPO}'s mirrored files"
 
 # push the changes
-git push
+git push --set-upstream origin dependadoc-${MIRRORED_REPO}-2022-05-25
 
 # open a PR
 set +e # to allow EOF not to exit 1
