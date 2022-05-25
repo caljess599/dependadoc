@@ -31,7 +31,8 @@ runs:
       shell: bash
     - run: dependadoc.sh
       shell: bash
-      working-directory: $GITHUB_WORKSPACE/docs
+      # relative to $GITHUB_WORKSPACE
+      working-directory: docs
       env:
         MIRRORED_FOLDER: ${{ inputs.mirrored-folder }}
         MIRRORED_REPOSITORY_FULL_NAME: $GITHUB_REPOSITORY
