@@ -17,15 +17,16 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Checkout $GITHUB_REPOSITORY
+    - name: Checkout current repo
       uses: actions/checkout@v3 
       with:
         path: main
-    - name: Checkout ${{ inputs.docs-repository }}
+    - name: Checkout documentation repo
       uses: actions/checkout@v3
       with:
         repository: ${{ inputs.docs-repository }}
         path: docs
+        fetch-depth: 0
         token: ${{ inputs.docs-repository-token-variable }}
     - run: echo "${{ github.action_path }}" >> $GITHUB_PATH
       shell: bash
@@ -35,7 +36,7 @@ runs:
       working-directory: docs
       env:
         MIRRORED_FOLDER: ${{ inputs.mirrored-folder }}
-        MIRRORED_REPOSITORY_FULL_NAME: $GITHUB_REPOSITORY
+        MIRRORED_REPOSITORY_FULL_NAME: ${{ github.repository }}
         DOCS_REPOSITORY_PATH: ${{ inputs.docs-repository-path}}
-        GITHUB_ACTOR: $GITHUB_ACTOR
-        GITHUB_WORKSPACE: $GITHUB_WORKSPACE
+        GITHUB_ACTOR: ${{ github.repository }}
+        GITHUB_WORKSPACE: ${{ github.workspace }}

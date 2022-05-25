@@ -7,16 +7,18 @@ set -eo pipefail
 # working repo at $GITHUB_WORKSPACE/main
 
 # env:
-  #   MIRRORED_FOLDER: ${{ inputs.mirrored-folder }}
-  #   MIRRORED_REPOSITORY_FULL_NAME: $GITHUB_REPOSITORY
-  #   DOCS_REPOSITORY_PATH: ${{ inputs.docs-repository-path}}
-  #   GITHUB_ACTOR: $GITHUB_ACTOR
-  #   GITHUB_WORKSPACE: $GITHUB_WORKSPACE
+#   MIRRORED_FOLDER: ${{ inputs.mirrored-folder }}
+#   MIRRORED_REPOSITORY_FULL_NAME: ${{ github.repository }}
+#   DOCS_REPOSITORY_PATH: ${{ inputs.docs-repository-path}}
+#   GITHUB_ACTOR: ${{ github.repository }}
+#   GITHUB_WORKSPACE: ${{ github.workspace }}
 
 # get mirrored repo name (no owner)
 MIRRORED_REPO=$(echo ${MIRRORED_REPOSITORY_FULL_NAME##*/})
 
+echo "MIRRORED_REPOSITORY_FULL_NAME is $MIRRORED_REPOSITORY_FULL_NAME"
 echo "MIRRORED REPO is $MIRRORED_REPO"
+echo "GITHUB_ACTOR IS $GITHUB_ACTOR"
 
 # create a new branch inside docs repo
 git switch -c dependadoc-${MIRRORED_REPO}-$(date +%F)
