@@ -27,6 +27,7 @@ git config user.name $GITHUB_ACTOR
 git config user.email via-github-actions@github.com
 
 # copy files
+echo "cp -a $GITHUB_WORKSPACE/main/$MIRRORED_FOLDER/.  $DOCS_REPOSITORY_PATH/mirror-${MIRRORED_REPO}/"
 cp -a $GITHUB_WORKSPACE/main/$MIRRORED_FOLDER/.  $DOCS_REPOSITORY_PATH/mirror-${MIRRORED_REPO}/
 
 # add changes
