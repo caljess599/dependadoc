@@ -12,6 +12,7 @@ set -eo pipefail
 #   DOCS_REPOSITORY_PATH: ${{ inputs.docs-repository-path}}
 #   GITHUB_ACTOR: ${{ github.repository }}
 #   GITHUB_WORKSPACE: ${{ github.workspace }}
+#   GITHUB_TOKEN: ${{ inputs.docs-repository-token-variable }}
 
 # get mirrored repo name (no owner)
 MIRRORED_REPO=$(echo ${MIRRORED_REPOSITORY_FULL_NAME##*/})
@@ -38,6 +39,7 @@ FILE_LIST=$(git status --porcelain)
 
 # exit if file list indicates there are no changes
 if [ -z "$FILE_LIST" ]; then 
+  echo "No changes found to mirrored documentation, exiting."
   exit
 fi
 
@@ -55,6 +57,10 @@ The following files were modified:
 $FILE_LIST
 EOF
 
+# authenticate
+gh auth login --with-token $GITHUB_TOKEN
+
+# create PR
 gh pr create \
   --title "Dependadoc PR from $MIRRORED_REPO (source ./$MIRRORED_FOLDER)" \
   --body "$BODY" \
