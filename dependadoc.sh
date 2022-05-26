@@ -20,15 +20,18 @@ echo "MIRRORED_REPOSITORY_FULL_NAME is $MIRRORED_REPOSITORY_FULL_NAME"
 echo "MIRRORED REPO is $MIRRORED_REPO"
 echo "GITHUB_ACTOR IS $GITHUB_ACTOR"
 
+# set branch name
+BRANCH_NAME=dependadoc-${MIRRORED_REPO}-$(date +%F@%H:%M)
+
 # create a new branch inside docs repo
-git switch -c dependadoc-${MIRRORED_REPO}-$(date +%F)
+git switch -c $BRANCH_NAME
 
 # configure some settings
 git config user.name $GITHUB_ACTOR
 git config user.email via-github-actions@github.com
 
 # copy files
-cp -rf $GITHUB_WORKSPACE/main/$MIRRORED_FOLDER  $DOCS_REPOSITORY_PATH/mirrored-${MIRRORED_REPO}
+cp -rf $GITHUB_WORKSPACE/main/$MIRRORED_FOLDER  $DOCS_REPOSITORY_PATH/mirror-${MIRRORED_REPO}
 
 # add changes
 git add .
@@ -45,7 +48,7 @@ fi
 git commit -m "Update ${MIRRORED_REPO}'s mirrored files"
 
 # push the changes
-git push --set-upstream origin dependadoc-${MIRRORED_REPO}-2022-05-25
+git push --set-upstream origin $BRANCH_NAME
 
 # open a PR
 set +e # to allow EOF not to exit 1
