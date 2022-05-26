@@ -1,5 +1,8 @@
 name: 'Dependadoc'
 description: 'Mirror documentation files to another repo'
+branding:
+  icon: 'book'
+  color: 'green'
 inputs:
   mirrored-folder:
     description: 'folder to evaluate for changed files'
