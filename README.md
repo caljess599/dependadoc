@@ -7,7 +7,7 @@ Github action that opens a PR against another repo when specified files in curre
 # What does dependadoc do?
 In many cases, documentation is best kept close to the code it documents; in a given repo, often documentation is kept in its own folder.
 
-Another common use case is to keep a dedicated documentation repo. This has the advantage of source control and consolidation. Also, there exist many tools (mkdocs is the one that first caught my attention) that can add beauty and searchability to repo-based documentation by rendering it into html.
+Another common use case is to keep a dedicated documentation repo. This has the advantage of source control and consolidation. Also, there exist many tools ([`mkdocs`](https://www.mkdocs.org/) is the one that first caught my attention) that can add beauty and searchability to repo-based documentation by rendering it into html.
 
 Dependadoc is an action that allows for what I call the "mirroring" of documentation that is kept _elsewhere_ than the dedicated repo to be automatically copied to the dedicated repo when it is added or updated.
 
@@ -16,7 +16,7 @@ A concrete example will help explain how this works.
 ## Sample workflow
 Let's say we have a repo called `tooling`, and within it, we keep all the docs in a folder called `documentation`. When a PR is merged to main in tooling, if any documentation has been added or updated, we want to mirror that documentation to our other repo, called `alldocs`.
 
-`Alldocs` is a repo set up to be rendered by `mkdocs`, so all the files that are rendered are in a folder called `site`.
+`Alldocs` is a repo set up to be rendered by [`mkdocs`](https://www.mkdocs.org/), so all the files that are rendered are in a folder called `site`.
 
 Here's the workflow file that we'll add to that repo.
 
