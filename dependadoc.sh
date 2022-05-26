@@ -16,10 +16,6 @@ set -eo pipefail
 # get mirrored repo name (no owner)
 MIRRORED_REPO=$(echo ${MIRRORED_REPOSITORY_FULL_NAME##*/})
 
-echo "MIRRORED_REPOSITORY_FULL_NAME is $MIRRORED_REPOSITORY_FULL_NAME"
-echo "MIRRORED REPO is $MIRRORED_REPO"
-echo "GITHUB_ACTOR IS $GITHUB_ACTOR"
-
 # set branch name
 BRANCH_NAME=dependadoc-${MIRRORED_REPO}-$(date +%F-T%H-%M)
 
