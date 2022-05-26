@@ -21,7 +21,7 @@ echo "MIRRORED REPO is $MIRRORED_REPO"
 echo "GITHUB_ACTOR IS $GITHUB_ACTOR"
 
 # set branch name
-BRANCH_NAME=dependadoc-${MIRRORED_REPO}-$(date +%F@%H:%M)
+BRANCH_NAME=dependadoc-${MIRRORED_REPO}-$(date +%F-T%H-%M)
 
 # create a new branch inside docs repo
 git switch -c $BRANCH_NAME
